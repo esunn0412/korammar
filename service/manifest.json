@@ -1,0 +1,16 @@
+{
+    "manifest_version" : 3,
+    "name": "Korammar",
+    "version": "1.0.0",
+    "description": "This is an extension to fix your Korean grammar mistakes", 
+    "author": "Taeeun Kim",
+    "action": {
+        "default_title": "코래머",
+        "default_popup": "popup.html"
+    },
+    "permissions": ["activeTab", "https://huggingface.co/"],
+    "background": {
+        "persistent": true,
+        "scripts": "background.js"
+    }
+}

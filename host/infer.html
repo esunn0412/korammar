@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ko-Grammarly</title>
+</head>
+<body>
+    <h1>한국어 맞춤법 검사기</h1>
+    <p>130자 이내 텍스트 검사용</p>
+    <form id="correctionForm">
+        <label for="text">Text to correct:</label><br>
+        <textarea id="text" name="text" rows="4" cols="50" placeholder="오류문장"></textarea><br>
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    <div id="result"></div>
+
+    <script>
+        // listen for submit button to be pressed
+        document.getElementById('correctionForm').addEventListener('submit', function(e) {
+            // prevents default form submission behaviour
+            e.preventDefault();
+            
+            // the variable is from the text textarea and it's turned into a json string
+            var text = document.getElementById('text').value;
+            var json = JSON.stringify({ 'text': text });
+
+            // sends a POST request to the /correct endpoint
+            /*
+                method indicates the request type 
+                headers indicate content-type, aka type of api body 
+                body is the api body itself in json string 
+            */
+            fetch('/correct', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: json
+            })
+            // parse json string into javascript object 
+            .then(response => response.json())
+            // handles the parsed data to be 
+            .then(data => {
+                document.getElementById('result').textContent = data.corrected_text
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
