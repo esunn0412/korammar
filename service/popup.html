@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Korammarly</title>
-    <script src="script.js"></script>
+    <!-- <link rel="stylesheet" href="./reset.css"> -->
 </head>
 <body id="popup-body" style="width: 300px">
-    <div>
-        <h1 id="korammar">Korammar</h1>
-        <textarea id="inputText" rows="5" cols="30"></textarea>
-        <br>
-        <button id="correctButton">Translate</button>
-        <br>
-        <textarea id="outputText" rows="5" cols="30" readonly></textarea>
-    </div>
+    <form id="correctForm">
+        <label for="inputText" id="label">Korammar</label>
+        <textarea id="inputText" rows="5" cols="30" placeholder="Paste in your text" style="font-size: small;"></textarea><br>
+        <button id="correctButton" type="submit">Translate</button><br>
+        <p>Corrected:</p>
+        <p id="outputText"></p>
+    </form>
 </body>
+<script src="script.js"></script>
 </html>

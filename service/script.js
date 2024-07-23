@@ -1,26 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     chrome.storage.sync.get('color', ({color}) => {
-        document.getElementById('korammar').style.color = color;
+        document.getElementById('label').style.color = color;
     });
 
-    let counter = 0;
-
-    const redButton = document.getElementById("redbutton");
-    const countDisplay = document.getElementById("counter");
-
-    redButton.addEventListener('click', () => {
-        counter++;
-        countDisplay.innerHTML = counter;
+    chrome.storage.sync.get('color', ({color}) => {
+        const h3elements = document.getElementsByTagName('h3');
+        h3elements[0].style.color = color;
     });
 
     const inputText = document.getElementById('inputText');
-    const correctButton = document.getElementById('correctButton');
-    const outputText = document.getElementById('outputText');
 
-    correctButton.addEventListener('click', () => {
-        const text = inputText.value
-        
+    document.getElementById('correctForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var text = inputText.value;
+        var json = JSON.stringify({'text': text});
+
+        fetch('http://localhost:8888/correct', {
+            method: "POST", 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: json
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('outputText').innerHTML = data;
+        })
+        .catch((error) => {
+            console.error('Error', error);
+        });        
     });
 
 });
