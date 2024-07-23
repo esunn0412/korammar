@@ -8,9 +8,9 @@
         "default_title": "코래머",
         "default_popup": "popup.html"
     },
-    "permissions": ["activeTab", "https://huggingface.co/"],
+    "permissions": ["activeTab", "storage"],
     "background": {
         "persistent": true,
-        "scripts": "background.js"
+        "service_worker": "background.js"
     }
 }

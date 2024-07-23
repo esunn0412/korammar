@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    chrome.storage.sync.get('color', ({color}) => {
+        document.getElementById('korammar').style.color = color;
+    });
+
     let counter = 0;
 
     const redButton = document.getElementById("redbutton");

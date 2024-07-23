@@ -1,10 +1,7 @@
-import {T5ForConditionalGeneration, T5Tokenizer} from transformers 
+let color = '#3aa757';
 
-async function loadModel(){
-    const tokenizer = await T5Tokenizer.from_pretrained('j5ng/et5-typos-corrector')
-    const model = await T5ForConditionalGeneration.from_pretrained('j5ng/et5-typos-corrector')
-    const device = "cpu";
-}
-
-// loadModel();
+chrome.runtime.onInstalled.addListener(() => {
+    chrome.storage.sync.set({color});
+    console.log('Default background color set to %cgreen', `color: ${color}`);
+});
 
