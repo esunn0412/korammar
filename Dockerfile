@@ -17,6 +17,6 @@ COPY . .
 
 EXPOSE 8888
 
-ENV FLASK_APP=app.py
+ENV FLASK_APP=/workspace/host/app.py
 
 CMD ["flask", "run", "--host=0.0.0.0", "--port=8888"]
