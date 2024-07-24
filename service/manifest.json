@@ -8,6 +8,7 @@
         "default_title": "코래머",
         "default_popup": "popup.html"
     },
+    "host_permissions": ["http://127.0.0.1:8889/*"],
     "permissions": ["activeTab", "storage"],
     "background": {
         "persistent": true,

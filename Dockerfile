@@ -15,8 +15,8 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-EXPOSE 8888
+EXPOSE 8889
 
 ENV FLASK_APP=/workspace/host/app.py
 
-CMD ["flask", "run", "--host=0.0.0.0", "--port=8888"]
+# CMD ["flask", "run", "--host=0.0.0.0", "--port=8889"]

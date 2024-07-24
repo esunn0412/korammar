@@ -6,7 +6,7 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 app = Flask(__name__)
 
 # Set up the device (CPU or GPU)
-os.environ["CUDA_VISIBLE_DEVICES"] = "2"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 device = "cuda" if torch.cuda.is_available() else "cpu"
 if device == "cuda":
     print(f"사용 가능한 GPU 개수: {torch.cuda.device_count()}")
@@ -22,9 +22,9 @@ model = model.to(device)
 
 
 
-# @app.route('/')
-# def home():
-#     return send_file('infer.html')
+@app.route('/')
+def home():
+    return send_file('infer.html')
 
 @app.route('/correct', methods=['POST'])
 def correct_grammar():
@@ -50,6 +50,6 @@ def translate(text):
     return tokenizer.batch_decode(result, skip_special_tokens=True)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8888)
+    app.run(debug=True, host='0.0.0.0', port=8889)
 
 
