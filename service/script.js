@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => response.json())
         .then(data => {
-            document.getElementById('outputText').innerHTML = data;
+            document.getElementById('outputText').innerHTML = data["corrected_text"];
         })
         .catch((error) => {
             console.error('Error', error);

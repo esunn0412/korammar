@@ -2,8 +2,10 @@ import os
 import torch
 from flask import Flask, request, jsonify, send_file
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Set up the device (CPU or GPU)
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
