@@ -2,6 +2,12 @@ FROM python
 
 WORKDIR /workspace 
 
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY . /workspace
 
 COPY requirements.txt .
@@ -13,4 +19,4 @@ EXPOSE 8888
 
 ENV FLASK_APP=app.py
 
-CMD ["flask", "run", "--gpus all", "--host=0.0.0.0", "--port=8888"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=8888"]
