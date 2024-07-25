@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         var text = inputText.value;
         var json = JSON.stringify({'text': text});
 
-        fetch('http://127.0.0.1:8889/correct', {
+        fetch('http://218.153.32.129:38889/correct', {
             method: "POST", 
             headers: {
                 'Content-Type': 'application/json'

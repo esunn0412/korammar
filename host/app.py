@@ -5,7 +5,7 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": ["http://218.153.32.129:38889/"]}})
 
 # Set up the device (CPU or GPU)
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
