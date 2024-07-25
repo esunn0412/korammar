@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Korammarly</title>
-    <!-- <link rel="stylesheet" href="./reset.css"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/commonApply.css">
 </head>
-<body id="popup-body" style="width: 300px">
-    <form id="correctForm">
+<body>
+    <div id="popup-body">
         <label for="inputText" id="label">Korammar</label>
-        <textarea id="inputText" rows="5" cols="30" placeholder="Paste in your text" style="font-size: small;"></textarea><br>
-        <button id="correctButton" type="submit">Translate</button><br>
-        <p>Corrected:</p>
-        <p id="outputText"></p>
-    </form>
+        <form id="correctForm">
+            <textarea id="inputText" placeholder="Input Text..."></textarea><br>
+            <button id="correctButton" type="submit">Press to Fix</button>
+        </form>
+    </div>
 </body>
 <script src="script.js"></script>
 </html>

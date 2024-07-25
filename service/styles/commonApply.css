@@ -1,0 +1,77 @@
+/* styles/commonApply.css */
+*::after {
+    box-sizing: border-box;
+    margin: 0; /* Reset margin for all elements */
+    padding: 0; /* Reset padding for all elements */
+}
+
+body{
+    box-sizing: border-box;
+}
+
+#popup-body {
+    font-family: Jura, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+    height: 250px;
+    box-sizing: border-box;
+}
+
+#correctForm {
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+#label {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    width: 100vw;
+    height: 15vh;
+    line-height: 15vh;
+    background-color: white;
+}
+
+#inputText {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    font-size: 12px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    resize: none;
+}
+
+#inputText:focus {
+    outline: none;
+}
+
+#correctButton {
+    padding: 5px;
+    font-size: 14px;
+    color: #306582;
+    background-color: white; /* Bootstrap primary color */
+    border-color: transparent;
+    border-radius: 5px;
+    border-width: 1.5px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+#correctButton:hover {
+    color: white;
+    border-style: solid;
+    border-color: white;
+    background-color: #306582; /* Darker shade on hover */
+}
+
+

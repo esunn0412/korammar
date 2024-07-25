@@ -5,16 +5,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     chrome.storage.sync.get('color', ({color}) => {
-        const h3elements = document.getElementsByTagName('h3');
-        h3elements[0].style.color = color;
+        document.getElementById('popup-body').style.backgroundColor = color;
     });
 
+    // Set variable
     const inputText = document.getElementById('inputText');
+    const inputForm = document.getElementById('correctForm');
 
-    document.getElementById('correctForm').addEventListener('submit', function(e) {
+    // focus cursor on textarea as soon as popup is active
+    inputText.focus()
+    
+    inputForm.addEventListener('submit', function(e) {
         e.preventDefault();
+        makePost(inputText.value);
+    });
 
-        var text = inputText.value;
+    inputForm.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter'){
+            e.preventDefault();
+            makePost(inputText.value);
+        }
+    });
+
+    function makePost(text){
         var json = JSON.stringify({'text': text});
 
         fetch('http://218.153.32.129:38889/correct', {
@@ -26,11 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => response.json())
         .then(data => {
-            document.getElementById('outputText').innerHTML = data["corrected_text"];
+            document.getElementById('inputText').value = data["corrected_text"];
         })
         .catch((error) => {
             console.error('Error', error);
-        });        
-    });
+        });
+    }
+
 
 });
