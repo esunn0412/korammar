@@ -11,40 +11,37 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set variable
     const inputText = document.getElementById('inputText');
     const inputForm = document.getElementById('correctForm');
-
-    // focus cursor on textarea as soon as popup is active
-    inputText.focus()
     
     inputForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        makePost(inputText.value);
+        requestMakePost(inputText.value, (correction) => {
+            if (correction && correction.length > 0) {
+                inputText.value = correction[0];
+            }
+        });
     });
 
-    inputForm.addEventListener('keypress', function (e) {
+    inputForm.addEventListener('keypress', async function (e) {
         if (e.key === 'Enter'){
             e.preventDefault();
-            makePost(inputText.value);
+            // let correction = requestMakePost(inputText.value);
+            // inputText.value = correction[0]; 
+            requestMakePost(inputText.value, (correction) =>{
+                if (correction && correction.length > 0) {
+                    inputText.value = correction[0];
+                }
+            });
         }
     });
 
-    function makePost(text){
-        var json = JSON.stringify({'text': text});
-
-        fetch('http://218.153.32.129:38889/correct', {
-            method: "POST", 
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: json
-        })
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('inputText').value = data["corrected_text"];
-        })
-        .catch((error) => {
-            console.error('Error', error);
+    function requestMakePost(text, callback) {
+        chrome.runtime.sendMessage({ type: 'makePost', text: text}, (response) => {
+            console.log('Correction received', response.data)
+            // return response.data;
+            if(callback){
+                callback(response.data);
+            }
         });
     }
-
 
 });
