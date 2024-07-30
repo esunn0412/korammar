@@ -6,18 +6,19 @@
     "author": "Taeeun Kim",
     "action": {
         "default_title": "코래머",
-        "default_popup": "popup.html"
+        "default_popup": "src/popup.html"
     },
     "host_permissions": ["http://127.0.0.1:8889/*", "http://218.153.32.129:38889/*"],
     "permissions": ["activeTab", "storage"],
     "background": {
         "persistent": true,
-        "service_worker": "background.js"
+        "service_worker": "src/background.js"
     }, 
     "content_scripts": [
         {
             "matches": ["http://*/*", "https://*/*"],
-            "js": ["content.js"],
+            "js": ["dist/content.bundle.js"],
+            "type": "module",
             "run_at": "document_start"
         }
     ], 

@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+    
 
     function requestMakePost(text, callback) {
         chrome.runtime.sendMessage({ type: 'makePost', text: text}, (response) => {

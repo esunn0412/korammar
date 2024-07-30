@@ -68,6 +68,7 @@ body{
 }
 
 #correctButton:hover {
+    transition: all 0.2s ease-in-out;
     color: white;
     border-style: solid;
     border-color: white;
