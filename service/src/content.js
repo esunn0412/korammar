@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Button, Popconfirm } from 'antd';
 import { createRoot } from 'react-dom/client';
 
@@ -6,7 +6,7 @@ import { createRoot } from 'react-dom/client';
 
 const App = () => {
     const [suggestion, setSuggestion] = useState('');
-    const [open, setOpen] = useState(false); 
+    const [open, setOpen] = useState(true); 
     const [confirmLoading, setConfirmLoading] = useState(false);
     
     useEffect(() => {
@@ -52,7 +52,7 @@ const App = () => {
     function displayIcon(event) {
         console.log('display Icon');
         const rect = event.target.getBoundingClientRect();
-        const iconElement = document.getElementById('korammar-chrome-app');
+        const iconElement = document.getElementById('icon');
         iconElement.relatedElement = event.target;
         iconElement.style.top = `${rect.top - 24 }px`;
         iconElement.style.left = `${rect.left}px`;
@@ -66,7 +66,7 @@ const App = () => {
             confirmLoading={confirmLoading}
             handleOk={handleOk}
             handleCancel={handleCancel}
-            handleInput={() => handleInput(document.getElementById('korammar-chrome-app').relatedElement)}
+            handleInput={() => handleInput(document.getElementById('icon').relatedElement)}
         >
         </KorammarPopconfirm>
     );
@@ -84,6 +84,7 @@ const KorammarPopconfirm = ({suggestion, open, confirmLoading, handleOk, handleC
         onCancel={handleCancel}
     >
         <Button 
+            id = 'icon'
             type="primary" 
             style={{
                 width: '20px',
