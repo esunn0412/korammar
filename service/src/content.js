@@ -19,6 +19,8 @@ const App = () => {
             setOpen(false);
             setConfirmLoading(false);
         }, 2000);
+        const iconElement = document.getElementById('icon');
+        iconElement.relatedElement.value = suggestion; 
     }
     const handleCancel = () => {
         console.log('Clicked cancel button');
@@ -46,7 +48,18 @@ const App = () => {
 
         inputs.forEach(input => {
             input.addEventListener('focus', displayIcon);
+            // input.addEventListener('blur', hideIcon);
         });
+    }
+
+    function hideIcon() {
+        const iconElement = document.getElementById('icon');
+        setTimeout(() => {
+            if (iconElement && open) {
+                iconElement.style.display = 'none';
+                // setOpen(false);
+            }
+        }, 1000);
     }
 
     function displayIcon(event) {
