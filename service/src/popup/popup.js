@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function requestMakePost(text, callback) {
         chrome.runtime.sendMessage({ type: 'makePost', text: text}, (response) => {
             console.log('Correction received', response.data)
-            // return response.data;
             if(callback){
                 callback(response.data);
             }

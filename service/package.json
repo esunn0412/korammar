@@ -9,5 +9,8 @@
   },
   "dependencies": {
     "antd": "^5.19.3"
+  },
+  "scripts": {
+    "watch": "webpack --watch --config webpack.config.js"
   }
 }

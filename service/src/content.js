@@ -6,7 +6,7 @@ import { createRoot } from 'react-dom/client';
 
 const App = () => {
     const [suggestion, setSuggestion] = useState('');
-    const [open, setOpen] = useState(true); 
+    const [open, setOpen] = useState(false); 
     const [confirmLoading, setConfirmLoading] = useState(false);
     
     useEffect(() => {
@@ -18,7 +18,7 @@ const App = () => {
         setTimeout(() => {
             setOpen(false);
             setConfirmLoading(false);
-        }, 2000);
+        }, 1000);
         const iconElement = document.getElementById('icon');
         iconElement.relatedElement.value = suggestion; 
     }
@@ -48,18 +48,13 @@ const App = () => {
 
         inputs.forEach(input => {
             input.addEventListener('focus', displayIcon);
-            // input.addEventListener('blur', hideIcon);
+            input.addEventListener('blur', hideIcon);
         });
     }
 
     function hideIcon() {
         const iconElement = document.getElementById('icon');
-        setTimeout(() => {
-            if (iconElement && open) {
-                iconElement.style.display = 'none';
-                // setOpen(false);
-            }
-        }, 1000);
+        iconElement.style.display = 'none';
     }
 
     function displayIcon(event) {
@@ -113,6 +108,7 @@ const KorammarPopconfirm = ({suggestion, open, confirmLoading, handleOk, handleC
                 cursor: 'pointer'
             }}
             onClick={() => handleInput()}
+            onMouseDown={(e) => e.preventDefault()}
         />
     </Popconfirm>
 );

@@ -5,8 +5,8 @@
     "description": "This is an extension to fix your Korean grammar mistakes", 
     "author": "Taeeun Kim",
     "action": {
-        "default_title": "코래머",
-        "default_popup": "src/popup.html"
+        "default_title": "Korammar",
+        "default_popup": "src/popup/popup.html"
     },
     "host_permissions": ["http://127.0.0.1:8889/*", "http://218.153.32.129:38889/*"],
     "permissions": ["activeTab", "storage"],
