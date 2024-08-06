@@ -20,7 +20,7 @@ body{
 }
 
 #correctForm {
-    padding: 15px 20px;
+    padding: 5px 20px 15px 20px;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -32,8 +32,8 @@ body{
     font-size: 32px;
     font-weight: bold;
     text-align: center;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding-top: 7px;
+    padding-bottom: none;
     width: 100vw;
     height: 15vh;
     line-height: 15vh;
@@ -46,7 +46,9 @@ body{
     box-sizing: border-box;
     font-size: 12px;
     padding: 10px;
-    border: none;
+    border-style: solid;
+    border-width: 1.5px;
+    border-color: #1677ff;
     border-radius: 5px;
     resize: none;
 }
@@ -58,21 +60,21 @@ body{
 #correctButton {
     padding: 5px;
     font-size: 14px;
-    color: #306582;
+    color: #1677ff;
     background-color: white; /* Bootstrap primary color */
-    border-color: transparent;
+    border-color: #1677ff;
     border-radius: 5px;
+    border-style: solid;
     border-width: 1.5px;
     box-sizing: border-box;
     cursor: pointer;
 }
 
 #correctButton:hover {
-    transition: all 0.2s ease-in-out;
+    transition: all 0.1s ease-in-out;
     color: white;
-    border-style: solid;
     border-color: white;
-    background-color: #306582; /* Darker shade on hover */
+    background-color: #1677ff; /* Darker shade on hover */
 }
 
 

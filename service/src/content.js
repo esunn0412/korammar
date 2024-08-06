@@ -8,21 +8,26 @@ const App = () => {
     const [suggestion, setSuggestion] = useState('');
     const [open, setOpen] = useState(false); 
     const [confirmLoading, setConfirmLoading] = useState(false);
-    
+
+    const iconElement = document.getElementById('icon');
+
     useEffect(() => {
         addEventListeners();
     }, []);
 
-    const handleOk = () => {
+    const handleOk = (e) => {
+        e.preventDefault();
         setConfirmLoading(true);
         setTimeout(() => {
             setOpen(false);
             setConfirmLoading(false);
         }, 1000);
-        const iconElement = document.getElementById('icon');
         iconElement.relatedElement.value = suggestion; 
+        // icon을 여기서 숨기거나, 태그를 삭제한다.
+        iconElement.style.display = 'none';
     }
-    const handleCancel = () => {
+    const handleCancel = (e) => {
+        e.preventDefault();
         console.log('Clicked cancel button');
         setOpen(false);
     };
@@ -55,14 +60,27 @@ const App = () => {
     function hideIcon() {
         const iconElement = document.getElementById('icon');
         iconElement.style.display = 'none';
+        setTimeout(() => {
+            setOpen(false);
+        }, 250)
     }
 
     function displayIcon(event) {
         console.log('display Icon');
         const rect = event.target.getBoundingClientRect();
         const iconElement = document.getElementById('icon');
+        // 버튼이랑 연결된 element 지정
         iconElement.relatedElement = event.target;
-        iconElement.style.top = `${rect.top - 24 }px`;
+
+        const iconHeight = 15; // The height of your icon
+        const margin = 4; // A small margin to keep the icon from touching the viewport edge
+        let topPosition = rect.top - iconHeight - margin;
+
+        if (topPosition < 0) {
+            topPosition = rect.bottom + margin;
+        }
+
+        iconElement.style.top = `${ topPosition }px`;
         iconElement.style.left = `${rect.left}px`;
         iconElement.style.display = 'block'; 
     }
@@ -82,7 +100,7 @@ const App = () => {
 
 const KorammarPopconfirm = ({suggestion, open, confirmLoading, handleOk, handleCancel, handleInput}) => (
     <Popconfirm
-        title="Suggestion"
+        title="추천 문장:"
         description={suggestion}
         open={open}
         onConfirm={handleOk}
@@ -95,14 +113,14 @@ const KorammarPopconfirm = ({suggestion, open, confirmLoading, handleOk, handleC
             id = 'icon'
             type="primary" 
             style={{
-                width: '20px',
-                height: '20px',
+                width: '15px',
+                height: '15px',
                 borderRadius: '20%',
                 padding: 0,
-                display: 'flex',
+                display: 'none',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: '#306582',
+                background: '#1677ff',
                 position: 'absolute',
                 zIndex: 999999,
                 cursor: 'pointer'

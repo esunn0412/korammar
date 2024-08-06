@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     chrome.storage.sync.get('color', ({color}) => {
-        document.getElementById('popup-body').style.backgroundColor = color;
+        document.getElementById('popup-body').style.backgroundColor = 'white';
     });
 
     // Set variable

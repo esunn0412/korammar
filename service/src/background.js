@@ -1,4 +1,4 @@
-let color = '#306582';
+let color = '#1677ff';
 
 chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.sync.set({color});
