@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { Button, Popconfirm } from 'antd';
 import { createRoot } from 'react-dom/client';
 
@@ -11,7 +11,7 @@ const App = () => {
     const [iconVisible, setIconVisible] = useState(false);
     const [iconPosition, setIconPosition] = useState({ top: 0, left: 0 });
     const [onClickFunction, setOnClickFunction] = useState(() => () => {});
-
+    const lastInteractedRef = useRef();
 
     useEffect(() => {
         addEventListeners();
@@ -30,6 +30,11 @@ const App = () => {
 
         // add event listener for text selection 
         document.addEventListener('mouseup', highlightHandler);
+        document.addEventListener('mousedown', setInteractionRef);
+    }
+
+    const setInteractionRef = (e) => {
+        lastInteractedRef.current = e.target;
     }
 
     function removeEventListeners() {
@@ -38,22 +43,27 @@ const App = () => {
             input.removeEventListener('focus', displayIconOnFocus);
             input.removeEventListener('blur', hideIcon);
         });
+        document.removeEventListener('mousedown', setInteractionRef);
         document.removeEventListener('mouseup', highlightHandler);
     }
 
-    // 마우스 업 시 실행되는 로직. 텍스트 드래그인지 아닌지 구별 후 handleHighlight 로직 실행. 
+    // 마우스 업 시 실행되는 로직. 텍스트 드래그인지 아닌지 구별 후 displayIconOnHighlight 로직 실행. 
     function highlightHandler(e) {
          // get the highlighted text
         console.log('highlight highlight');
         let text = window.getSelection().toString().trim()
         // check if anything is actually highlighted
         if(text !== '') {
-            handleHighlight(e);
+            displayIconOnHighlight(e);
+        } else {
+            if (!isInputElement(lastInteractedRef)){
+                hideIcon();
+            }
         }
     }
 
     // 텍스트 드래그 시 아이콘 위치, 온클릭 함수, 지정된 텍스트 저장 로직.
-    const handleHighlight = (e) => {
+    const displayIconOnHighlight = (e) => {
         console.log('handle Highlight');
         let selectedText = window.getSelection().toString().trim()
         console.log(`selected Text: ${selectedText}`);
@@ -79,6 +89,7 @@ const App = () => {
         }
     }
 
+    // 아이콘 팝업에서 OK를 누르면 실행되는 함수 
     const handleOk = (e) => {
         e.preventDefault();
         setConfirmLoading(true);
@@ -98,12 +109,15 @@ const App = () => {
         }
         
     }
+
+    // 아이콘 팝업에서 cancel 을 누르면 실행되는 함수 
     const handleCancel = (e) => {
         e.preventDefault();
         console.log('Clicked cancel button');
         setOpen(false);
     };
 
+    // 브라우저 내 Input란에 focus 된 상태로 아이콘 누르면 실행되는 함수  
     function handleInput(eventTarget) {
         setOpen(true);
         console.log('handle input function');
@@ -119,6 +133,7 @@ const App = () => {
         }
     }
 
+    // 아이콘 hide 함수 
     function hideIcon() {
         console.log('hide icon function');
         setTimeout(() => {
