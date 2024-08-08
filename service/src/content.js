@@ -5,7 +5,6 @@ import { createRoot } from 'react-dom/client';
 
 
 const App = () => {
-    const [original, setOriginal] = useState('');
     const [suggestion, setSuggestion] = useState('');
     const [open, setOpen] = useState(false); 
     const [confirmLoading, setConfirmLoading] = useState(false);
@@ -14,11 +13,9 @@ const App = () => {
     const [onClickFunction, setOnClickFunction] = useState(() => () => {});
 
 
-    const iconElement = document.getElementById('icon');
-
     useEffect(() => {
         addEventListeners();
-        return () => removeEventListeners(); // Cleanup function
+        return () => removeEventListeners();
     }, []);
 
     // add event listeners for all text inputs 
@@ -44,30 +41,35 @@ const App = () => {
         document.removeEventListener('mouseup', highlightHandler);
     }
 
+    // 마우스 업 시 실행되는 로직. 텍스트 드래그인지 아닌지 구별 후 handleHighlight 로직 실행. 
     function highlightHandler(e) {
          // get the highlighted text
         console.log('highlight highlight');
         let text = window.getSelection().toString().trim()
         // check if anything is actually highlighted
         if(text !== '') {
-            // we've got a highlight, now do your stuff here
             handleHighlight(e);
         }
     }
 
+    // 텍스트 드래그 시 아이콘 위치, 온클릭 함수, 지정된 텍스트 저장 로직.
     const handleHighlight = (e) => {
         console.log('handle Highlight');
         let selectedText = window.getSelection().toString().trim()
-        setIconPosition({top:e.clientY, left:e.clientX});
+        console.log(`selected Text: ${selectedText}`);
+        setIconPosition({top:e.clientY + window.scrollY, left:e.clientX + window.scrollX});
         setIconVisible(true);
-        setOriginal(selectedText);
-        setOnClickFunction(() => () => handleSelectedText());
+        setOnClickFunction(() => () => handleSelectedText(selectedText));
     }
 
-    const handleSelectedText = () => {
+    // 텍스트 드래그 교정 요청해 추천 문장으로 바꿔 팝업에 게시하는 로직. 
+    // 드래그 후 아이콘 클릭 시 실행 
+    const handleSelectedText = (selectedText) => {
+        console.log('selected text button clicked');
         setOpen(true);
-        if (original){
-            chrome.runtime.sendMessage({ type: 'makePost', text: original }, (response) => {
+        console.log(`Original ${selectedText}`);
+        if (selectedText){
+            chrome.runtime.sendMessage({ type: 'makePost', text: selectedText }, (response) => {
                 if (response.data && response.data.length > 0){
                     console.log(response.data);
                     const correction = response.data[0];
@@ -93,7 +95,6 @@ const App = () => {
             }
         } else {
             console.log('handling selected text');
-            console.log(original);
         }
         
     }
@@ -136,9 +137,6 @@ const App = () => {
         const iconHeight = 15; // The height of your icon
         const margin = 4; // A small margin to keep the icon from touching the viewport edge
         let topPosition = rect.top - iconHeight - margin;
-        // const cursorX = event.clientX;
-        // const cursorY = event.clientY;
-        // console.log(cursorY, cursorX)
         if (topPosition < 0) {
             topPosition = rect.bottom + margin;
         }
