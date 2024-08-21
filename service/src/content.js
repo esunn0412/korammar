@@ -61,7 +61,7 @@ const App = () => {
             }
         }
     }
-    
+
     function isInputElement(element) {
         if (!element) return false;
         const inputTags = ['INPUT', 'TEXTAREA', 'SELECT'];
@@ -124,6 +124,7 @@ const App = () => {
     const handleCancel = (e) => {
         e.preventDefault();
         console.log('Clicked cancel button');
+        setSuggestion('');
         setOpen(false);
     };
 
