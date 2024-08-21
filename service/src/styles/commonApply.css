@@ -20,7 +20,7 @@ body{
 }
 
 #correctForm {
-    padding: 5px 20px 15px 20px;
+    padding: 0px 20px 15px 20px;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -29,13 +29,12 @@ body{
 }
 
 #label {
-    font-size: 32px;
+    font-size: 14px;
     font-weight: bold;
+    color: black;
     text-align: center;
-    padding-top: 7px;
+    padding-top: 15px;
     padding-bottom: none;
-    width: 100vw;
-    height: 15vh;
     line-height: 15vh;
     background-color: white;
 }
@@ -47,34 +46,41 @@ body{
     font-size: 12px;
     padding: 10px;
     border-style: solid;
-    border-width: 1.5px;
-    border-color: #1677ff;
-    border-radius: 5px;
+    border-width: 0.8px;
+    border-color: #B4B4B4;
+    color: black;
+    border-radius: 4px;
     resize: none;
+}
+
+#inputText ::placeholder {
+    color: #959595;
 }
 
 #inputText:focus {
     outline: none;
 }
 
-#correctButton {
+Button {
     padding: 5px;
-    font-size: 14px;
-    color: #1677ff;
-    background-color: white; /* Bootstrap primary color */
-    border-color: #1677ff;
-    border-radius: 5px;
+    font-size: 12px;
+    color: white;
+    background-color: #334EAD; /* Bootstrap primary color */
+    border-color: #334EAD;
+    border-radius: 4px;
     border-style: solid;
     border-width: 1.5px;
+    width: 100%;
     box-sizing: border-box;
     cursor: pointer;
 }
 
+
 #correctButton:hover {
     transition: all 0.1s ease-in-out;
     color: white;
-    border-color: white;
-    background-color: #1677ff; /* Darker shade on hover */
+    border-color: rgb(8, 70, 156);
+    background-color: rgb(8, 70, 156); /* Darker shade on hover */
 }
 
 

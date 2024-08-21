@@ -61,6 +61,13 @@ const App = () => {
             }
         }
     }
+    
+    function isInputElement(element) {
+        if (!element) return false;
+        const inputTags = ['INPUT', 'TEXTAREA', 'SELECT'];
+        return inputTags.includes(element.tagName) || element.isContentEditable;
+    }
+    
 
     // 텍스트 드래그 시 아이콘 위치, 온클릭 함수, 지정된 텍스트 저장 로직.
     const displayIconOnHighlight = (e) => {
@@ -79,13 +86,16 @@ const App = () => {
         setOpen(true);
         console.log(`Original ${selectedText}`);
         if (selectedText){
-            chrome.runtime.sendMessage({ type: 'makePost', text: selectedText }, (response) => {
-                if (response.data && response.data.length > 0){
-                    console.log(response.data);
-                    const correction = response.data[0];
-                    setSuggestion(correction);
-                }
+            requestMakePost(selectedText, 'makePostCorrect', (correction) => {
+                setSuggestion(correction);
             });
+            // chrome.runtime.sendMessage({ type: 'makePostCorrect', text: selectedText }, (response) => {
+            //     if (response.data){
+            //         console.log(response.data);
+            //         const correction = response.data;
+            //         setSuggestion(correction);
+            //     }
+            // });
         }
     }
 
@@ -123,14 +133,27 @@ const App = () => {
         console.log('handle input function');
         let text = eventTarget.value || eventTarget.text;
         if (text) {
-            chrome.runtime.sendMessage({ type: 'makePost', text: text }, (response) => {
-                if (response.data && response.data.length > 0) {
-                    console.log(response.data);
-                    const correction = response.data[0];
-                    setSuggestion(correction);
-                }
+            requestMakePost(text, 'makePostCorrect', (correction) => {
+                setSuggestion(correction);
             });
+            // chrome.runtime.sendMessage({ type: 'makePostCorrect', text: text }, (response) => {
+            //     if (response.data) {
+            //         console.log(response.data);
+            //         const correction = response.data;
+            //         setSuggestion(correction);
+            //     }
+            // });
         }
+    }
+
+    function requestMakePost(text, type, callback) {
+        chrome.runtime.sendMessage({ type: type, text: text}, (response) => {
+            if(callback){
+                console.log('hihi')
+                console.log(response)
+                callback(response.data);
+            }
+        });
     }
 
     // 아이콘 hide 함수 

@@ -9,13 +9,41 @@
     <link href="https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles/reset.css">
     <link rel="stylesheet" href="../styles/commonApply.css">
+    <style>
+        #logo {
+            width: 50px;
+            height: 50px;
+        }
+        #logo-container {
+            width: 100%;
+            padding: 0px 10px 0px 50px;
+            display: flex;
+            align-items: center;
+            gap:2px;
+            justify-content: start;
+        }
+        #button-container {
+            margin-top: 8px;
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            gap: 5px;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
     <div id="popup-body">
-        <label for="inputText" id="label">Korammar</label>
+        <div id="logo-container">
+            <img src="../../logo.svg" alt="Logo" id="logo">
+            <label for="inputText" id="label">우리말 바른말</label>
+        </div>
         <form id="correctForm">
-            <textarea id="inputText" autofocus="autofocus" placeholder="Input Text..."></textarea><br>
-            <button id="correctButton" type="submit">Press to Fix</button>
+            <textarea id="inputText" autofocus="autofocus" placeholder="교정할 문장을 작성해주세요"></textarea>
+            <div id="button-container">
+                <button id="correctButton" type="submit">맞춤법 수정</button>
+                <button id="editButton" type="submit">문장 수정</button>
+            </div>
         </form>
     </div>
 </body>
